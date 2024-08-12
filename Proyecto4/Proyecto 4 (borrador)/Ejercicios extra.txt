@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+typedef struct {
+    int altura;          // Altura en centímetros
+    int nacimiento;      // Año de nacimiento
+    int titulos;         // Cantidad de torneos ganados
+    bool usa_izquierda;  // True si es zurdo / zurda
+} tenista;
+
+// Función para encontrar y mostrar el tenista más joven
+void mostrar_tenista_mas_joven(tenista arr[], int tam) {
+    if (tam == 0) {
+        printf("El arreglo está vacío.\n");
+        return;
+    }
+
+    tenista mas_joven = arr[0];
+    for (int i = 1; i < tam; i++) {
+        if (arr[i].nacimiento > mas_joven.nacimiento) {
+            mas_joven = arr[i];
+        }
+    }
+
+    printf("El tenista más joven es:\n");
+    printf("Altura: %d cm\n", mas_joven.altura);
+    printf("Año de nacimiento: %d\n", mas_joven.nacimiento);
+    printf("Títulos ganados: %d\n", mas_joven.titulos);
+    printf("Usa la izquierda: %s\n", mas_joven.usa_izquierda ? "Sí" : "No");
+}
+
+int main(void) {
+    // Crear tres tenistas
+    tenista t1 = {.altura = 180, .nacimiento = 1990, .titulos = 5, .usa_izquierda = false};
+    tenista t2 = {.altura = 175, .nacimiento = 1995, .titulos = 3, .usa_izquierda = true};
+    tenista t3 = {.altura = 185, .nacimiento = 2000, .titulos = 8, .usa_izquierda = false};
+
+    // Crear un arreglo de tenistas y agregar los tres tenistas
+    tenista tenistas[] = {t1, t2, t3};
+    int tam = sizeof(tenistas) / sizeof(tenista);
+
+    // Llamar a la función para mostrar el tenista más joven
+    mostrar_tenista_mas_joven(tenistas, tam);
+
+    return 0;
+}

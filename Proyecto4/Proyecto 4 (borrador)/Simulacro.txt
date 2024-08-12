@@ -1,0 +1,139 @@
+EJE 1
+#include <stdio.h>
+#include <assert.h>
+
+typedef struct 
+{
+    int op_sum; //Guarda la suma
+    int op_mul; //Guarda la multiplicacio
+    int op_div; //Guarda la division entera
+    int op_dis; // Guarda el valor absoluto de la resta
+}info_t;
+
+info_t operar(int x, int y){
+    info_t res;
+    
+    res.op_sum = x+y;
+    res.op_mul = x*y;
+    res.op_div = x/y;
+    
+    res.op_dis = x-y;
+
+    if (res.op_dis >= 0){
+
+        res.op_dis = res.op_dis;
+
+    }else{
+        res.op_dis = res.op_dis * (-1);
+    }
+    
+    return res;
+
+}
+
+int main(void){
+    int a, b;
+    info_t res;
+
+    //Pedimos enteros
+    printf("Introduce el primer numero: ");
+    scanf("%d", &a);
+
+    printf("Introduce el segundo numero: ");
+    scanf("%d", &b);
+
+    //Verficamos que ambos valores sean mayores que 0
+
+    assert(a > 0 && b > 0 && a > b);
+
+    //Llamamos a la funcion operar
+    res = operar(a, b);
+
+    //Printeamos resultados
+
+    printf("Los resultados son: \n");
+
+    printf("La suma es: %d\n", res.op_sum);
+    printf("La multiplicacion es: %d\n", res.op_mul);
+    printf("El resto de la division es: %d\n", res.op_div);
+    printf("El valor absoluto de la resta es: %d", res.op_dis);
+
+    return 0;
+
+}
+EJERCIIO 2
+#include <stdio.h>
+#include <assert.h>
+#include <stdbool.h>
+
+#define N 5
+
+typedef struct 
+{
+    int cant_v;
+    int cant_pares;
+    int cant_imp;
+    bool hay_8;
+}datos;
+
+datos llenar_estructura(int a[], int tam , int v){
+    int i = 0;
+    datos res;
+    res.cant_v = 0;
+    res.cant_pares = 0;
+    res.cant_imp = 0;
+    res.hay_8 = false;
+
+    while(i < tam){
+        if(a[i] == v){
+            res.cant_v++;
+        }
+
+        if(a[i]%2==0){
+            res.cant_pares++;
+        }else{
+            res.cant_imp++;
+        }
+        
+        if (a[i] == 8){
+            res.hay_8 = true;
+        }
+
+        i++;
+
+    }
+
+    return res;
+
+}
+
+int main(void){
+    int a[N];
+    datos res;
+    int v;
+
+    //Pedimos valor de v
+    printf("Ingrese el valor de v: ");
+    scanf("%d", &v);
+
+    //pedimos el arreglo
+    int i = 0;
+    while(i < N){
+        printf("Ingrese el indice a[%d]:", i);
+        scanf("%d", &a[i]);
+        i = i+1;
+    }
+    
+
+    //Llamamos a la funcion
+    res = llenar_estructura(a, N, v);
+
+    //Printeamos resultados
+    printf("res.cant_v = %d\n", res.cant_v);
+    printf("res.cant_pares = %d\n", res.cant_pares);
+    printf("res.cant_imp = %d\n", res.cant_imp);
+    printf("res.hay_8 = %d\n", res.hay_8); // 0 = False, 1 = True.
+
+    return 0;
+
+}

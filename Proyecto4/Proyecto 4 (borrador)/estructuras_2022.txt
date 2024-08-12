@@ -1,0 +1,235 @@
+TEMA D 
+#include <stdio.h>
+#include <stdbool.h>
+#include <assert.h>
+
+#define N 5
+
+typedef struct pruebas
+{
+    bool hay_cero;
+    int cantidad_de_pares;
+    int cantidad_de_impares;
+}particion;
+
+particion par_impar(int tam, int a[]){
+    int i = 0;
+    particion res;
+    int cero = false;
+    int pares = 0;
+    int impares = 0;
+
+    while(i < tam){
+        if(a[i] == 0){
+            cero = true;
+        }else if(a[i]%2 == 0){
+            pares++;
+        }else{
+            impares++;
+        }
+        i++;
+    }
+
+    res.hay_cero = cero;
+    res.cantidad_de_pares = pares;
+    res.cantidad_de_impares = impares;
+
+    return res;
+    
+}
+
+int main(void){
+    int a[N];
+    assert(N > 2);
+    particion res;
+
+    //Pedimos valores del arreglo 
+    int i = 0;
+
+    while (i<N){
+        printf("Ingrese un valor para la posicion %d: ", i);
+        scanf("%d", &a[i]);
+        i++;
+    }
+
+    //Llamamos a la funcion
+
+    res = par_impar(N,a);
+
+    //Imprimimos por pantalla
+    printf("res.hay_cero == %d\n", res.hay_cero);
+    printf("res.cantidad_de_pares == %d\n", res.cantidad_de_pares);
+    printf("res.cantidad_de_impares == %d\n", res.cantidad_de_impares);
+
+    return 0;
+}
+
+*TEMA E*
+#include <stdio.h>
+#include <limits.h>
+#include <assert.h>
+
+#define N 5
+
+typedef struct 
+{
+    int minimo;
+    int indice;
+}minmul_t;
+
+minmul_t multiplo_minimo(int tam, int a[], int k){
+    int i = 0;
+    int min = INT_MAX;
+    minmul_t res;
+
+    while(i<tam){
+        if(a[i] % k == 0 && a[i] < min){
+            min = a[i];
+        }
+        i++;
+    }
+
+    res.indice = i;
+    res.minimo = min;
+    
+
+    return res;
+}
+
+int main(void){
+    int a[N];
+    int k;
+    //Pedimos el arreglo
+    int i = 0;
+
+    while (i<N){
+        printf("Ingrese un valor para la posicion %d: ", i);
+        scanf("%d", &a[i]);
+        i++;
+    }
+
+    //Pedimos un numero k
+    printf("Ingrese el valor de k: ");
+    scanf("%d", &k);
+    assert(k != 0);
+
+    //llamamos a la funcion
+    minmul_t res = multiplo_minimo(N, a, k);
+
+    //Mostramos resultado
+    printf("El multiplo minimo de %d es %d\n", k, res.minimo);
+
+    return 0;
+}
+
+////////////////
+#include <stdio.h>
+
+#define N 5
+
+typedef struct 
+{
+    int precio;
+    int peso_en_kilos;
+}producto_t;
+
+typedef struct 
+{
+    int precio_total;
+    int peso_total;
+}total_t;
+
+total_t calcular_montos(int tam, producto_t a[]){
+    int i = 0;
+    total_t total = {0,0};
+
+    while (i< tam){
+        total.precio_total += a[i].precio;
+        total.peso_total += a[i].peso_en_kilos;
+        i++;
+    }
+
+    return total;
+}
+
+void pedir_arreglo(producto_t a[], int tam){
+    int i= 0;
+    while(i < tam){
+        printf("Ingrese el precio del producto %d: ", i + 1);
+        scanf("%d", &a[i].precio);
+        printf("Ingrese el peso en kilos del producto %d: ", i + 1);
+        scanf("%d", &a[i].peso_en_kilos);
+        i = i+1;
+    }
+}
+
+int main(void){
+    producto_t a[N];
+
+    pedir_arreglo(a , N);
+
+    total_t res = calcular_montos(N,a);
+
+    printf("Precio total a pagar: %d$.\n", res.precio_total);
+    printf("Peso total a llevar: %dkg\n", res.peso_total);
+
+    return 0;
+}
+
+---------------------------------------------
+#include <stdio.h>
+#include <stdbool.h>
+
+// Definición de las estructuras
+typedef struct {
+    float cota_inf;
+    float cota_sup;
+} rango;
+
+typedef struct {
+    bool es_anterior;
+    bool es_posterior;
+    bool esta_adentro;
+} rango_info;
+
+// Función que verifica el rango
+rango_info verificar_rango(float x, rango r) {
+    rango_info resInfo;
+
+    // Primera condición
+    resInfo.es_anterior = (x < r.cota_inf);
+
+    // Segunda condición
+    resInfo.es_posterior = (x > r.cota_sup);
+
+    // Tercera condición
+    resInfo.esta_adentro = (x >= r.cota_inf && x <= r.cota_sup);
+
+    return resInfo;
+}
+
+int main(void) {
+    rango r;
+    float x;
+
+    // Pedimos los valores del struct rango
+    printf("Ingrese valor cota_inf: ");
+    scanf("%f", &r.cota_inf);
+
+    printf("Ingrese valor cota_sup: ");
+    scanf("%f", &r.cota_sup);
+
+    // Pedimos valor flotante x
+    printf("Ingrese valor flotante: ");
+    scanf("%f", &x);
+
+    // Llamamos a la función
+    rango_info resInfo = verificar_rango(x, r);
+
+    // Mostramos los resultados
+    printf("El valor de es_anterior: %s\n", resInfo.es_anterior ? "true" : "false");
+    printf("El valor de es_posterior: %s\n", resInfo.es_posterior ? "true" : "false");
+    printf("El valor de esta_adentro: %s\n", resInfo.esta_adentro ? "true" : "false");
+
+    return 0;
+}

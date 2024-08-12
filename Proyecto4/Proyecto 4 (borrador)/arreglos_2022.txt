@@ -1,0 +1,499 @@
+TEMA A 2022 
+#include <stdio.h>
+#include <limits.h>
+#include <assert.h>
+
+#define N 5
+
+int multiplo_maximo(int tam, int a[], int k){
+    int i = 0;
+    int max = INT_MIN;
+
+    while (i < tam){
+        if(a[i] % k == 0 && a[i] > max){
+            max = a[i];
+        }
+        i++;
+    }
+
+    return max;
+}
+
+int main(void){
+    int a[N];
+    int k;
+    
+    
+    //Pedimos el arreglo
+    int i = 0;
+
+    while(i<N){
+        printf("Ingrese el valor del arreglo a[%d]: ", i);
+        scanf("%d", &a[i]);
+
+        i++;
+    }
+
+    //pedimos el valor k
+
+    printf("Ingrese el valor de k: ");
+    scanf("%d", &k);
+
+    //Verficamos que sea distinto de 0 
+    assert(k != 0);
+    
+    //Llamamos a la funcion
+    int res = multiplo_maximo(N,a,k);
+
+    //Imprimimos
+
+    if(res == INT_MIN){
+        printf("NO hay elementos que sean multiplos de %d\n", k);
+    }else{
+        printf("El elemento mas garnde del arreglo que es multiplo de %d es: %d\n", k, res);
+    }
+
+    return 0;
+}
+
+*TEMA C*
+#include <stdio.h>
+#include <limits.h>
+
+#define N 5
+
+int indice_maximo_par(int tam, int a[]){
+    int i = 0;
+    int max = INT_MIN;
+    int res = -1;
+
+    while(i < tam){
+        if(a[i] % 2 == 0 && a[i] > max){
+            max = a[i];
+            res = i;
+        }
+        i++;
+    }
+
+    return res;
+}
+
+int main(void){
+    int a[N];
+
+    //Pedimos el arreglo
+
+    int i = 0;
+    while(i < N){
+        printf("Ingrese el valor para el indice a[%d]: ", i);
+        scanf("%d", &a[i]);
+        i++;
+    }
+
+    //Llamamos a la funcion 
+    int res = indice_maximo_par(N,a);
+
+    //mostramos resultado
+    if(res == -1){
+        printf("No hay elementos pares\n");
+
+    }else{
+        printf("El indice mas grande de que contiene un numero par es: %d", res);
+
+    }
+
+    return 0;
+
+}
+
+*TEMA D*
+#include <stdio.h>
+#include <assert.h>
+
+#define N 5
+
+int multiplica_multiplos(int tam, int a[], int k){
+    int i=0;
+    int res = 1;
+
+    while(i < tam){
+        if(a[i] % k == 0){
+            res *= a[i]; 
+        }
+        i++;
+    }
+
+    return res;
+}
+
+int main(void){
+    int a[N];
+    //Ingrese el arreglo
+    int i = 0;
+    while (i<N){
+        printf("Ingrese el valor de el arreglo en a[%d]: ", i);
+        scanf("%d", &a[i]);
+        i++;
+    }
+
+    //Pedimos el valor de k
+    int k;
+    printf("Ingrese el valor de k: ");
+    scanf("%d", &k);
+
+    //verificamos que sea distinto de 0
+    assert(k != 0);
+
+    //llamamos a la funcion
+    int res = multiplica_multiplos(N,a,k);
+
+    //imprimimos por pantalla
+    if(res == 1){
+        printf("1");
+    }else{
+        printf("El producot de los valores a[%d] que son multiplos de %d son: %d", i, k, res);
+    }
+
+    return 0;
+}
+
+*TEMA E*
+#include <stdio.h>
+#include <assert.h>
+
+#define N 5
+
+int suma_cuadrados_pares(int tam, int a[]){
+    int i = 0;
+    int cua;
+    int suma;
+
+    while (i < tam)
+    {
+        if (a[i] % 2 == 0)
+        {
+            cua = (a[i] * a[i]);
+            suma = cua + a[i];
+        }
+        i++;
+    }
+
+    return suma;
+    
+}
+
+int main(void){
+    int a[N];
+
+    //pedimos arreglo
+    int i = 0;
+    while (i<N){
+        printf("Ingrese el valor de el arreglo en a[%d]: ", i);
+        scanf("%d", &a[i]);
+        i++;
+    }
+
+    //LLamamos a la funcion 
+
+    int res = suma_cuadrados_pares(N,a);
+
+    //Mostramos
+    printf("La suma de los elementos pares son: %d ", res);
+
+}
+-----------------------------------------------------------------------
+#include <stdio.h>
+#include <stdbool.h>
+
+typedef struct {
+   int l1;
+   int l2;
+   int l3;
+   int l4;
+
+}lienzo;
+
+typedef struct 
+{
+    bool es_figura;
+    bool es_paisaje;
+    bool ninguno_anteriores;
+}tipo_lienzo;
+
+tipo_lienzo verificar_lienzo(lienzo t){
+    tipo_lienzo res;
+
+    if(t.l1 == t.l2 && t.l2 == t.l3 && t.l3 == t.l4){
+        res.es_figura = true;
+    }else{
+        res.es_figura = false;
+    }
+
+    if (t.l1 == t.l3 && t.l2 == t.l4){
+        res.es_paisaje = true;
+    }else{
+        res.es_paisaje = false;
+    }
+
+    if(res.es_figura == false && res.es_paisaje == false){
+        res.ninguno_anteriores = true;
+    }else{
+        res.ninguno_anteriores = false;
+    }
+    
+    return res;
+}
+
+int main(void){
+    lienzo t;
+    tipo_lienzo res;
+
+    //pedimos valores de la struc
+
+    printf("Ingrese los valores de l1: \n");
+    scanf("%d", &t.l1);
+    printf("Ingrese los valores de l2: \n");
+    scanf("%d", &t.l2);
+    printf("Ingrese los valores de l3: \n");
+    scanf("%d", &t.l3);
+    printf("Ingrese los valores de l4: \n");
+    scanf("%d", &t.l4);
+
+    res = verificar_lienzo(t);
+
+    //Mostramos resultados booleanos 
+
+    printf("Es figura?: %d\n", res.es_figura);
+    printf("Es paisaje?: %d\n", res.es_paisaje);
+    printf("ninguno de los anteriores? %d\n", res.ninguno_anteriores);
+
+
+    return 0;
+
+}
+-----------------------------------------------------------------------
+#include <stdio.h>
+#include <stdbool.h>
+#include <limits.h>
+#include <assert.h>
+
+#define N 3
+
+typedef struct 
+{
+   bool es_divisible_por_2;
+   int menor_divisible_por_2;
+}datos;
+
+datos hay_divisible(int tam, int a[]){
+    datos res;
+    res.menor_divisible_por_2 = INT_MAX;
+    res.es_divisible_por_2 = false;
+
+    assert(tam >= 2);
+    int i = 0;
+
+    while(i < tam){
+        if(a[i]%2==0){
+            res.es_divisible_por_2 = true;
+            if(a[i] < res.menor_divisible_por_2){
+                res.menor_divisible_por_2 = a[i];
+            }
+        }
+
+        i++;
+    }
+
+  return res;  
+}
+
+int main(void){
+    int a[N];
+    datos res;
+
+    //Ingrese arreglo
+    int i = 0;
+    while(i<N){
+        printf("Ingrese el elemento del arreglo a[%d]: ", i);
+        scanf("%d", &a[i]);
+        i++;
+    }
+    
+
+    //Llamamos a la funcion
+    res = hay_divisible(N, a);
+
+    //Mostramos
+    printf("res.es_divisible_por_2: %d\n", res.es_divisible_por_2);
+    printf("res.menor_divisible_por_2: %d\n", res.menor_divisible_por_2);
+
+    return 0;
+}
+
+---------------------------------------------------------------------------
+#include <stdio.h>
+#include <stdbool.h>
+#include <assert.h>
+
+#define N 3
+
+typedef struct {
+    bool esta_ordenado_desc;
+    char maximo;
+} datos;
+
+datos esta_ordenado_desc(int tam, char a[]) {
+    datos res;
+    assert(tam >= 2);
+    
+    res.esta_ordenado_desc = true;
+    res.maximo = a[0];
+    
+    for (int i = 1; i < tam; i++) {
+        if (a[i] > res.maximo) {
+            res.maximo = a[i];
+        }
+        if (a[i] > a[i-1]) {
+            res.esta_ordenado_desc = false;
+        }
+    }
+    
+    return res;
+}
+
+int main(void) {
+    char a[N];
+    datos res;
+
+    // Solicitar al usuario ingresar los valores del arreglo
+    printf("Ingrese %d caracteres:\n", N);
+    for (int i = 0; i < N; i++) {
+        printf("Elemento %d: ", i + 1);
+        scanf(" %c", &a[i]);
+    }
+
+    // Llamar a la función esta_ordenado_desc
+    res = esta_ordenado_desc(N, a);
+
+    // Mostrar resultados
+    printf("Esta ordenado de manera descendente?: %s\n", res.esta_ordenado_desc ? "true" : "false");
+    printf("El maximo elemento es: %c\n", res.maximo);
+
+    return 0;
+}
+--------------------------------------------------------------------------
+   if (x<= 1) return false;
+
+    int i = 2;
+    while(i * i <= x){
+        if (x % i == 0) return false;
+    }
+    return true;
+}
+
+
+int cuantos_primos(int a[], int tam, int pos1, int pos2){
+    //Verificamos las precondiciones con assert
+    assert(pos1 >= 0 && pos1 < tam);
+    assert(pos2 >= 0 && pos2 < tam);
+    assert(pos1 <= pos2);
+
+    int contador = 0;
+    int i = pos1;
+
+    while(i <= pos2){
+        if(esPrimo(a[i])){
+            contador++;
+        }
+        i++;
+    }
+
+    return contador;
+}
+
+int pedir_entero(){
+    int x;
+    printf("Ingrese un valor entero: ");
+    scanf("%d", &x);
+
+    return x;
+}
+
+int main(void){
+    int a[N];
+
+    //Pedimos dos enteros 
+    int pos1 = pedir_entero();
+    int pos2 = pedir_entero();
+
+    //pedimos arreglo
+    int i = 0;
+    while(i < N){
+        printf("Ingrese el valor para el indice a[%d]: ", i);
+        scanf("%d", &a[i]);
+        i++;
+    }
+
+    //Llamamos a la funcion
+    int res = cuantos_primos(a,N,pos1,pos2);
+
+    //Mosttramos
+    printf("pos1 == %d\n", pos1);
+    printf("pos2 == %d\n", pos2);
+    printf("El resultado es: %d", res);
+
+    return 0;
+}
+---------------------------------------------------------
+#include <stdio.h>
+#include <assert.h>
+#include <stdbool.h>
+
+#define N 5
+
+bool esta_en_arreglo(int a[], int tam, int v){
+    int i = 0;
+    bool esta = false;
+
+    while (i<tam){
+        if(a[i] == v){
+            esta = true;
+            break;
+        }else{
+            esta = false;
+        }
+        i++;
+    }
+
+    return esta;
+}
+
+int main(void){
+    int a[N];
+    int v;
+
+    //pedimos valor de v
+    printf("Ingrese el valor de v: ");
+    scanf("%d", &v);
+
+    //pedimos arreglo
+    int i = 0;
+
+    while(i<N){
+        printf("Ingrese el valor del arreglo a[%d]: ", i);
+        scanf("%d", &a[i]);
+        i++;
+    }    
+
+    //Llamamos
+    bool esta = esta_en_arreglo(a, N, v);
+
+    //Mostramos
+    if(esta == true){
+        printf("El valor %d esta en el arreglo\n", v);
+    }else{
+        printf("El valor %d no esta en el arreglo\n", v);
+    }
+
+    return 0;
+}

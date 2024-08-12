@@ -1,0 +1,134 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+#define N 5
+#define MAX_INTENTOS 3
+#define CONTRASENA_CORRECTA 123
+
+typedef struct 
+{
+    int intentos_totales;
+    bool esta_autenticado;
+    int fallos_consecutivos;
+}Autentificacion;
+
+Autentificacion autenticar_usuario(int tam, int passwords []){
+    Autentificacion res;
+    res.intentos_totales = 0;
+    res.fallos_consecutivos = 0;
+    res.esta_autenticado = false;
+
+    int i = 0;
+
+    while(i < tam){
+        res.intentos_totales++;
+
+        if(CONTRASENA_CORRECTA == passwords[i]){
+            res.esta_autenticado = true;
+            res.fallos_consecutivos = 0;
+            break;
+
+        }else{
+            res.fallos_consecutivos++;
+            if(res.fallos_consecutivos >= MAX_INTENTOS){
+                break;
+            }
+        }
+        i++;
+    }
+
+    return res;
+}
+
+int main(void){
+    int passwords[N];
+    char x;
+    Autentificacion res;
+
+    //Ingrese su usuario
+    printf("Ingrese su usuario: ");
+    scanf("%c", &x);
+
+    //pedimos arreglo de contrasenas
+    int i = 0;
+    while(i<N){
+        printf("Ingrese la contrasena %d: ", i);
+        scanf("%d", &passwords[i]);
+        i++;
+    }
+
+    //Llamamos
+    res = autenticar_usuario(N, passwords);
+
+    //Mostramos
+    if(res.esta_autenticado == true){
+        printf("!Su Autentificacion es exitosa , nro de intentos: %d",res.intentos_totales);
+    }else{
+        printf("Su Autentificacion es fallida :( , nro de intentos fallidos consecutivos: %d, nro totales: %d",res.fallos_consecutivos, res.intentos_totales);
+    }
+
+    return 0;
+}   
+--------------------------------------------------------------------------------------------
+#include <stdio.h>
+#include <stdbool.h>
+
+typedef struct {
+    int ancho;
+    int altura;
+}Rectangulo;
+
+typedef struct {
+    int max_area;
+    bool hay_contenido;
+}ResultadoRect;
+
+ResultadoRect contenido_uno_en_otro(Rectangulo r1, Rectangulo r2){
+    ResultadoRect res;
+
+    //calcular el area de cada rectangulo
+    int area_r1 = r1.ancho * r1.altura;
+    int area_r2 = r2.ancho * r2.altura;
+
+    //determinar el area mas grande
+    res.max_area = (area_r1 > area_r2) ? area_r1 : area_r2;
+
+    //verificar si uno de los rectangulos esta contenido en otro 
+    if((r1.ancho <= r2.ancho && r1.altura <= r2.altura) || (r2.ancho <= r1.ancho && r2.altura <= r1.altura)){
+        res.hay_contenido = true;
+    }else{
+        res.hay_contenido = false;
+    }
+
+    return res;
+}
+
+int main (void){
+    Rectangulo r1,r2;
+    ResultadoRect res;
+
+    // Pedir al usuario los valores del primer rectángulo
+    printf("Ingrese el ancho del primer rectangulo: ");
+    scanf("%d", &r1.ancho);
+    printf("Ingrese la altura del primer rectangulo: ");
+    scanf("%d", &r1.altura);
+
+    // Pedir al usuario los valores del segundo rectángulo
+    printf("Ingrese el ancho del segundo rectangulo: ");
+    scanf("%d", &r2.ancho);
+    printf("Ingrese la altura del segundo rectangulo: ");
+    scanf("%d", &r2.altura);
+
+    // Llamar a la función contenido_uno_en_otro
+    res = contenido_uno_en_otro(r1, r2);
+
+    // Mostrar los resultados
+    printf("El área máxima es: %d\n", res.max_area);
+    if (res.hay_contenido) {
+        printf("Uno de los rectángulos está contenido en el otro.\n");
+    } else {
+        printf("Ninguno de los rectángulos está contenido en el otro.\n");
+    }
+
+    return 0;
+}

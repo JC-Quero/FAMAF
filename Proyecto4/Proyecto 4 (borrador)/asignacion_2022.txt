@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <assert.h>
+
+int ingrese_enteros(void) {
+    int x;
+    printf("Ingrese su entero: ");
+    scanf("%d", &x);
+    return x;
+}
+void imprimir_entero(int x){
+    printf("Su numero entero es: %d", x);
+}
+
+
+int main(void){
+    int x,y,z;
+
+    x = ingrese_enteros();
+    y = ingrese_enteros();
+    z = ingrese_enteros();
+
+    int X = x;
+    int Y = y;
+    int Z = z;
+
+    assert(x ==X && y == Y && z ==Z && Y!= 0 && z > 0);
+
+    x = Y+Z;
+    y = Z%Y;
+    z = X/Y;
+
+    assert(x == Y+Z && y == Z%Y && z== X/Y );
+
+    printf("x = %d\n", x);
+    printf("y = %d\n", y);
+    printf("z = %d\n", z);
+
+    return 0;
+}
+
+TEMA E 
+#include <stdio.h>
+#include <assert.h>
+#include <stdbool.h>
+
+int pedir_entero(void){
+    int x;
+    printf("Ingrese un numero entero: ");
+    scanf("%d", &x);
+    
+    return x;
+}
+
+bool pedir_booleano(void){
+    int x;
+    printf("Ingrese un valor booleano (0 false, 1 True): ");
+    scanf("%d", &x);
+
+    return x != 0; //Convierte al entero en booleano
+}
+
+void imprimeEntero(int x){
+    printf("Su numero es : %d", x);
+}
+
+void imprimeBooleano(bool x){
+    printf("Su valor booleano es: %s\n", x ? "True" : "False");
+}
+
+int main(void){
+    int X;
+    int Y;
+    bool Z;
+    /////
+    int x = pedir_entero();
+    int y = pedir_entero();
+    bool z = pedir_booleano();
+
+    X = x;
+    Y = y,
+    Z = z;
+
+    assert( x == X && y == Y && z == Z && X > 0 );
+    
+    x = X*X + Y * Y;
+    y = X + Y;
+    z = X > Y;
+
+    //Verifiacos post
+    assert(x == X*X + Y*Y && y == X+Y && z == (X>Y) );
+
+    //Mostramos
+    imprimeEntero(x);
+    printf("\n");
+    imprimeEntero(y);
+    printf("\n");
+    imprimeBooleano(z);
+
+    return 0;
+    
+}
